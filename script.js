@@ -1,4 +1,12 @@
-const kategori = document.getElementById("kategori")
+// naming
+// konsekvent wishFocus,
+//searchable names setInterval(updateCountdown, 1000);
+// errors - pristine
+// dont repeat  yourself         let td2 = document.createElement("th")
+// remove dead code
+// SRP . move to  files
+
+const k = document.getElementById("kategori")
 const sak = document.getElementById("sak")
 const wish = document.getElementById("wish")
 const lightrope = document.getElementById("lightrope")
@@ -55,15 +63,15 @@ const products=[
 //men mer modernt 
 const uniqueCategories = [...new Set(products.map(function(item){return item.category}))];
 uniqueCategories.forEach(function(catNamn){
-    kategori.add(new Option(catNamn))
+    k.add(new Option(catNamn))
 })
 
 
-const onFocusWish =  function(){
-    lightrope.style.display = "block";
-}
 const onBlurWish =  function(){
     lightrope.style.display = "none";
+}
+const wishFocus =  function(){
+    lightrope.style.display = "block";
 }
 
 const onChangeWish = function(){
@@ -84,7 +92,7 @@ const onKategoriChange = function(){
     sak.innerHTML = "" // rensa alla options
 
 
-    let matchingProducts = products.filter(c=>c.category === kategori.value)
+    let matchingProducts = products.filter(c=>c.category === k.value)
     matchingProducts.forEach(item=>{
         let opt = document.createElement('option');
         opt.innerText = item.name;
@@ -97,14 +105,14 @@ const onKategoriChange = function(){
     // sak.appendChild(opt);    
 }
 
-kategori.addEventListener("change",onKategoriChange)
+k.addEventListener("change",onKategoriChange)
 
-wish.addEventListener("focus",onFocusWish)
+wish.addEventListener("focus",wishFocus)
 wish.addEventListener("blur",onBlurWish)
 //wish.addEventListener("change",onChangeWish)
 wish.addEventListener("input",onInputWish)
 
-kategori.dispatchEvent(new Event('change'))
+k.dispatchEvent(new Event('change'))
 //onKategoriChange() - SAMMA FUNKAR LIKA BRA!!
 
 /*
@@ -216,10 +224,27 @@ const updateTable = function(){
         }
         let tr = document.createElement("tr")
 
-        tr.appendChild(createTableTdOrTh("th", players[i].name))
-        tr.appendChild(createTableTdOrTh("td", players[i].jersey ))
-        tr.appendChild(createTableTdOrTh("td", players[i].position ))
-        tr.appendChild(createTableTdOrTh("td", players[i].team ))
+        let td2 = document.createElement("th")
+        td2.innerText = players[i].name 
+        tr.appendChild(td2)
+
+        td2 = document.createElement("td")
+        td2.innerText = players[i].jersey 
+        tr.appendChild(td2)
+
+        td2 = document.createElement("td")
+        td2.innerText = players[i].position 
+        tr.appendChild(td2)
+
+        td2 = document.createElement("td")
+        td2.innerText = players[i].team 
+        tr.appendChild(td2)
+
+
+        // tr.appendChild(createTableTdOrTh("th", players[i].name))
+        // tr.appendChild(createTableTdOrTh("td", players[i].jersey ))
+        // tr.appendChild(createTableTdOrTh("td", players[i].position ))
+        // tr.appendChild(createTableTdOrTh("td", players[i].team ))
 
         let td = document.createElement("td")
         let btn = document.createElement("button")
